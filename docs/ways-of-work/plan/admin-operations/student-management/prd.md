@@ -4,8 +4,7 @@
 **Khu vực Quản lý Học viên** (Student Management Page)
 
 ## 2. Epic  
-Thuộc epic **Công cụ vận hành/admin**  
-(xem PRD/kiến trúc gốc của Epic "Operational Tools for Admin & QA Team").
+**Admin Operations**
 
 ## 3. Mục tiêu
 
