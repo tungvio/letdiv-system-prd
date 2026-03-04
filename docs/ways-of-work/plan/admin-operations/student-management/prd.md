@@ -1,7 +1,7 @@
 # PRD – Bảng điều khiển Quản lý Học viên
 
 ## 1. Tên Tính năng  
-**Khu vực Quản lý Học viên** (Student Management Page)
+**Khu vực Quản lý Học viên** (Student Management Module)
 
 ## 2. Epic  
 **Admin Operations**
