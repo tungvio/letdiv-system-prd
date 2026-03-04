@@ -36,13 +36,13 @@
    đăng ký và tiến độ học để hiểu rõ trạng thái của họ.
 3. Với tư cách **admin**, tôi muốn thêm ghi chú nội bộ trên trang học viên để
    ghi lại lịch sử tương tác.
-4. Với tư cách **admin**, tôi muốn lọc và phân trang danh sách học viên để duyệt
-   bộ tài khoản lớn.
-5. Với tư cách **admin**, tôi muốn khóa hoặc tạm ngưng tài khoản học viên khi cần thiết để ngăn họ đăng nhập.
-6. Với tư cách **admin**, tôi muốn xem lịch sử giao dịch/mua hàng của học viên để
+4. Với tư cách **admin**, tôi muốn lọc danh sách học viên theo trạng thái (active/disabled) và khoảng ngày đăng ký để dễ dàng tìm kiếm nhóm học viên cụ thể.
+5. Với tư cách **admin**, tôi muốn xem danh sách học viên được phân trang (mỗi trang 20 bản ghi) để hệ thống tải nhanh khi có hàng nghìn học viên.
+6. Với tư cách **admin**, tôi muốn khóa hoặc tạm ngưng tài khoản học viên khi cần thiết để ngăn họ đăng nhập.
+7. Với tư cách **admin**, tôi muốn xem lịch sử giao dịch/mua hàng của học viên để
    theo dõi các đơn mua sản phẩm đơn lẻ và khóa học.
-7. Với tư cách **QA**, tôi muốn xem danh sách học viên trong lớp học và tiến độ của họ để hỗ trợ quản lý hoc viên.
-8. Với tư cách **admin**, tôi muốn xem tất cả khóa học mà học viên đã đăng ký kèm theo tiến độ.
+8. Với tư cách **QA**, tôi muốn xem danh sách học viên trong lớp học và tiến độ của họ để hỗ trợ quản lý học viên.
+9. Với tư cách **admin**, tôi muốn xem tất cả khóa học mà học viên đã đăng ký kèm theo tiến độ hoàn thành để đánh giá mức độ tham gia.
 
 ## 6. Yêu cầu
 
@@ -76,7 +76,6 @@
   - Chỉ các vai trò `admin` và `qa` được truy cập khu vực quản lý học viên.
   - Admin có quyền thực hiện tất cả hành động bao gồm khóa/tạm ngưng tài khoản và xem tab giao dịch.
   - QA có toàn quyền xem (tìm kiếm, lọc, thêm ghi chú) NGOẠI TRỪ tab "Giao dịch" (chỉ admin được xem) và không thể khóa tài khoản.
-  - Sử dụng guards dựa trên vai trò (`@Roles('admin','qa')`).
 
 
 ### Phi chức năng
@@ -98,5 +97,4 @@
 
 ## 8. Ngoài phạm vi
 
-- Đặt lại mật khẩu (Google only auth).  
-- Impersonate user.
+- Đặt lại mật khẩu (Google only auth).
