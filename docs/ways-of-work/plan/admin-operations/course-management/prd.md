@@ -50,11 +50,7 @@
 
 ### Thống kê & Báo cáo
 15. Với tư cách **admin/QA**, tôi muốn xem số lượng học viên đang học mỗi khóa học để đánh giá mức độ phổ biến.
-
-### Review & Đánh giá
-16. Với tư cách **admin/QA**, tôi muốn xem danh sách review của học viên về khóa học để nắm bắt phản hồi.
-17. Với tư cách **admin/QA**, tôi muốn xem điểm đánh giá trung bình của khóa học để đánh giá chất lượng.
-18. Với tư cách **admin**, tôi muốn xóa các review không phù hợp (spam, tục tịu) để duy trì chất lượng nội dung.
+16. Với tư cách **admin/QA**, tôi muốn nhấn vào chỉ số đánh giá để mở module Review tương ứng theo từng khóa học.
 
 ## 6. Yêu cầu
 
@@ -66,7 +62,7 @@
     - **Tên khóa học:** Hiển thị tên và ảnh bìa thumbnail (dùng cho SEO và preview danh sách).
     - **Giảng viên:** Tên giảng viên phụ trách.
     - **Số học viên:** Số lượng học viên đang học (đã mua). Click vào mở trang Chi tiết Thống kê.
-    - **Đánh giá:** Số sao trung bình và tổng review (VD: ⭐ 4.5 (128)). Click vào mở tab Review.
+    - **Đánh giá:** Số sao trung bình và tổng review (VD: ⭐ 4.5 (128)). Click vào mở module Review với bộ lọc theo khóa học hiện tại.
     - **Giá:** Giá mua toàn bộ khóa học (VND).
     - **Trạng thái:** Nhãn màu (`Công khai` hoặc `Bản nháp`).
     - **Hành động:** Các nút `[Sửa]`, `[Quản lý Chương]`, `[Xóa]` (QA không thấy nút Xóa).
@@ -119,39 +115,23 @@
 
 - **Phân quyền**
   - Chỉ các vai trò `admin` và `qa` được truy cập module này.
-  - **Admin:** Có toàn quyền Tạo, Xem, Sửa, Xóa khóa học video, sắp xếp thứ tự và xóa review.
-  - **QA:** Có quyền Xem và Sửa thông tin khóa học, xem thống kê số lượng học viên và review. Không có quyền Xóa khóa học, sắp xếp thứ tự và xóa review.
+  - **Admin:** Có toàn quyền Tạo, Xem, Sửa, Xóa khóa học video và sắp xếp thứ tự.
+  - **QA:** Có quyền Xem và Sửa thông tin khóa học, xem thống kê số lượng học viên và chỉ số đánh giá. Không có quyền Xóa khóa học và sắp xếp thứ tự.
 
 - **Thống kê & Báo cáo**
   - **Hiển thị trong bảng Danh sách:**
     - Thêm 2 cột thống kê:
       - **Số học viên:** Hiển thị số lượng học viên đang học (đã mua khóa học).
-      - **Đánh giá:** Hiển thị số sao trung bình (VD: ⭐ 4.5) và tổng số review trong ngoặc (VD: ⭐ 4.5 (128)).
+      - **Đánh giá:** Hiển thị số sao trung bình (VD: ⭐ 4.5) và tổng số review trong ngoặc (VD: ⭐ 4.5 (128)); click để điều hướng sang module Review theo đúng khóa học.
   - **Trang Chi tiết Thống kê:**
-    - Khi nhấn vào số liệu thống kê (số học viên, đánh giá) trong bảng, mở trang chi tiết.
+    - Khi nhấn vào cột **Số học viên** trong bảng, mở trang chi tiết thống kê của khóa học.
     - **Tab Tổng quan:**
       - Số học viên đang học
       - Tỷ lệ hoàn thành khóa học (%)
       - Đánh giá trung bình (số sao)
       - Tổng số review
     - **Tab Học viên:** Danh sách học viên đã mua (tên, email, ngày mua, tiến độ %).
-    - **Tab Review:** Xem danh sách review chi tiết (có chức năng riêng, mô tả bên dưới).
-
-- **Quản lý Review & Đánh giá**
-  - **Tab Review trong trang Chi tiết Thống kê:**
-    - Hiển thị danh sách tất cả review của khóa học, sắp xếp theo thời gian (mới nhất trước).
-    - Mỗi review hiển thị:
-      - Avatar và tên học viên
-      - Số sao đánh giá (1-5 sao)
-      - Nội dung review
-      - Thời gian đăng
-      - Nút `[Xóa]` (chỉ Admin thấy)
-    - **Bộ lọc:** Lọc theo số sao (Tất cả, 5 sao, 4 sao, 3 sao, 2 sao, 1 sao).
-    - **Phân trang:** Hiển thị 20 review/trang.
-  - **Xóa Review (Chỉ Admin):**
-    - Khi nhấn nút `[Xóa]` trên một review, hiển thị modal xác nhận.
-    - Modal: "Bạn có chắc chắn muốn xóa review này? Hành động này không thể hoàn tác."
-    - Sau khi xóa, review biến mất và điểm trung bình được cập nhật lại.
+    - Từ các chỉ số đánh giá, có link điều hướng sang module Review (module riêng) với filter theo khóa học.
 
 ### Phi chức năng
 
@@ -307,42 +287,21 @@
   **When** trang tải  
   **Then** hiển thị danh sách học viên với tên, email, ngày mua, tiến độ %
 
-### Review & Đánh giá
-- **Given** admin/QA xem tab "Review" trong trang Chi tiết Thống kê  
-  **When** trang tải  
-  **Then** hiển thị danh sách tất cả review với avatar, tên, số sao, nội dung, thời gian
-
-- **Given** admin xem danh sách review  
-  **When** kiểm tra  
-  **Then** thấy nút `[Xóa]` trên mỗi review
-
-- **Given** QA xem danh sách review  
-  **When** kiểm tra  
-  **Then** không thấy nút `[Xóa]`
-
-- **Given** admin/QA chọn bộ lọc "5 sao"  
-  **When** áp dụng lọc  
-  **Then** chỉ hiển thị các review có 5 sao
-
-- **Given** admin nhấn nút `[Xóa]` trên một review  
+- **Given** admin/QA nhấn vào chỉ số đánh giá của một khóa học trong danh sách  
   **When** click  
-  **Then** hiển thị modal xác nhận "Bạn có chắc chắn muốn xóa review này?"
+  **Then** hệ thống điều hướng sang module Review và tự động filter theo đúng khóa học đó
 
-- **Given** admin xác nhận xóa review  
-  **When** xác nhận  
-  **Then** review biến mất và điểm trung bình được cập nhật lại
-
-- **Given** có hơn 20 review  
-  **When** xem danh sách  
-  **Then** hiển thị 20 review đầu tiên và các nút phân trang
+- **Given** admin/QA nhấn vào chỉ số đánh giá trong trang Chi tiết Thống kê  
+  **When** click  
+  **Then** hệ thống điều hướng sang module Review và giữ ngữ cảnh khóa học hiện tại
 
 ## 8. Ngoài phạm vi
 
 - Quản lý Chương và Bài học (thuộc PRD riêng).
 - Quản lý Giảng viên (thuộc module riêng, module này chỉ sử dụng danh sách có sẵn).
 - **Thống kê & Báo cáo Doanh thu** (thuộc module Quản lý Tài chính).
+- **Quản lý Review chi tiết và xóa review** (thuộc module Review riêng).
 - Quản lý danh mục (category/tag) cho khóa học.
 - Tính năng nhân bản (duplicate) khóa học.
 - Export/Import dữ liệu khóa học.
-- Chức năng học viên viết review (thuộc phần Student Portal).
 - Biểu đồ thống kê nâng cao (xu hướng, dự đoán).
