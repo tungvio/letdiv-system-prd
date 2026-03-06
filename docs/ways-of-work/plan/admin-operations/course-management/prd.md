@@ -78,7 +78,7 @@
   - **Mô tả chi tiết:** (Rich Text Editor) - Hỗ trợ định dạng văn bản, chèn ảnh, video.
   - **Ảnh bìa (Thumbnail):** (Bắt buộc)
     - File Upload
-    - Định dạng: JPG, PNG
+    - Định dạng: JPG, PNG, WEBP
     - Giới hạn dung lượng: < 2MB
     - Hiển thị preview sau khi upload
     - Mục đích: dùng cho SEO (Open Graph, Twitter Cards), hiển thị trong danh sách và fallback khi video lỗi
