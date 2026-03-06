@@ -56,12 +56,13 @@
     - **Menu cha (có menu con):** Khi nhấp sẽ mở rộng/thu gọn để hiển thị/ẩn các menu con, không điều hướng.
   - Các mục menu con khi nhấp sẽ điều hướng đến trang tương ứng.
   - Mục menu của trang hiện tại phải được làm nổi bật (highlight active state).
+  - **Trạng thái mặc định:** Khi load trang lần đầu, tất cả menu cha ở trạng thái mở (expanded).
   - Menu gồm các mục:
-    - Tổng quan (Dashboard) - menu đơn
-    - Quản lý Nội dung (menu cha) → Khóa học (menu con)
-    - Tương tác & Dịch vụ (menu cha) → Hỏi & Đáp, Chấm bài (menu con)
-    - Quản lý Người dùng - menu đơn
-    - Quản lý Tài chính (menu cha) → Lịch sử Giao dịch (menu con)
+    - Tổng quan (Dashboard) - menu đơn [Cả Admin & QA]
+    - Khóa học video - menu đơn [Cả Admin & QA]
+    - Tương tác & Dịch vụ (menu cha) → Hỏi & Đáp (menu con) [Chỉ Admin]
+    - Quản lý Người dùng - menu đơn [Cả Admin & QA]
+    - Quản lý Tài chính (menu cha) → Lịch sử Giao dịch (menu con) [Chỉ Admin]
 
 - **Thanh Header Ngang (Top Bar)**
   - Luôn cố định ở trên cùng, bên phải của Sidebar.
@@ -76,7 +77,7 @@
 
 - **Khu vực Nội dung Chính**
   - Mỗi trang bắt đầu bằng **Page Header** chứa:
-    - **Breadcrumb Navigation:** Hiển thị đường dẫn phân cấp (ví dụ: `Quản lý Nội dung > Khóa học > Chương`). Mỗi cấp là link để quay lại.
+    - **Breadcrumb Navigation:** Hiển thị đường dẫn phân cấp (ví dụ: `Khóa học video > Khóa học ABC > Chương 1`). Mỗi cấp là link để quay lại.
     - **Page Title:** Tiêu đề trang rõ ràng, to, đậm (h1).
   - Nội dung chính của module hiển thị dưới Page Header.
 
@@ -90,16 +91,25 @@
     - Hiện ra giữa màn hình tránh các hành động quan trọng (xóa, khóa tài khoản).
     - Chặn tương tác với phần còn lại của trang.
     - Có nút **[Xác nhận]** và **[Hủy]**.
-    - Ví dụ: "Bạn chắc chắn muốn xóa khóa học này?"
+    - Ví dụ: "Bạn chắc chắn muốn xóa khóa học video này?"
+
+- **Phân quyền**
+  - **Admin (Quản trị hệ thống):**
+    - Truy cập tất cả menu: Dashboard, Khóa học video, Tương tác & Dịch vụ (Hỏi & Đáp), Quản lý Người dùng, Quản lý Tài chính.
+    - Có quyền thực hiện tất cả hành động trên hệ thống.
+  - **QA (Chất lượng/Kiểm định):**
+    - Chỉ truy cập: Dashboard, Khóa học video, Quản lý Người dùng.
+    - Không nhìn thấy menu: Tương tác & Dịch vụ, Quản lý Tài chính.
+    - Sidebar chỉ hiển thị các menu mà QA có quyền truy cập.
 
 ### Phi chức năng
 
 - Sidebar cần tải <200 ms.
-- Top Bar phải responsive và hiển thị đúng trên desktop, tablet.
 - Toast notification phải hiển thị < 100 ms.
 - UI tuân WCAG AA (accessibility).
 - Hỗ trợ các trình duyệt: Chrome, Firefox, Safari, Edge (phiên bản mới nhất).
 - Consistent styling across tất cả trang.
+- Responsive cho tablet và desktop.
 
 ## 7. Tiêu chí chấp nhận
 
@@ -112,25 +122,37 @@
   **When** click  
   **Then** điều hướng đến trang tương ứng ngay lập tức
 
-- **Given** admin nhấp vào menu cha (có menu con) như "Quản lý Nội dung"  
-  **When** click lần đầu  
-  **Then** menu mở rộng và hiển thị các menu con, không điều hướng
-
-- **Given** admin nhấp vào menu cha đang mở  
-  **When** click lần nữa  
+- **Given** admin nhấp vào menu cha (có menu con) như "Tương tác & Dịch vụ"  
+  **When** click lần đầu (đang mở)  
   **Then** menu thu gọn và ẩn các menu con đi một cách mượt mà
 
-- **Given** admin nhấp vào menu con như "Khóa học"  
-  **When** click  
-  **Then** điều hướng đến trang Khóa học
+- **Given** admin nhấp vào menu cha đang đóng  
+  **When** click lần nữa  
+  **Then** menu mở rộng và hiển thị các menu con, không điều hướng
 
-- **Given** admin đang xem trang "Khóa học"  
+- **Given** admin nhấp vào menu con như "Hỏi & Đáp"  
+  **When** click  
+  **Then** điều hướng đến trang Hỏi & Đáp
+
+- **Given** admin đang xem trang "Hỏi & Đáp"  
   **When** observe menu  
-  **Then** mục "Khóa học" được làm nổi bật/active và menu cha "Quản lý Nội dung" đang mở
+  **Then** mục "Hỏi & Đáp" được làm nổi bật/active và menu cha "Tương tác & Dịch vụ" đang mở
+
+- **Given** admin load trang lần đầu  
+  **When** trang tải xong  
+  **Then** tất cả menu cha (Tương tác & Dịch vụ, Quản lý Tài chính) ở trạng thái mở
 
 - **Given** admin nhấp vào logo LetDiv  
   **When** trang tải  
   **Then** điều hướng về Dashboard
+
+- **Given** QA đăng nhập vào hệ thống  
+  **When** xem Sidebar  
+  **Then** chỉ thấy menu: Dashboard, Khóa học video, Quản lý Người dùng (không thấy Tương tác & Dịch vụ, Quản lý Tài chính)
+
+- **Given** Admin đăng nhập vào hệ thống  
+  **When** xem Sidebar  
+  **Then** thấy tất cả menu: Dashboard, Khóa học video, Tương tác & Dịch vụ, Quản lý Người dùng, Quản lý Tài chính
 
 ### Top Bar
 - **Given** admin xem thanh Top Bar  
