@@ -21,23 +21,29 @@
 
 ## 4. Personas người dùng
 
-- **Quản trị hệ thống (System Administrator)** – người quản lý toàn bộ hệ thống, cần điều hướng nhanh giữa các module quản trị.
-- **Quản lý Nội dung (Content Manager)** – người quản lý khóa học, bài giảng, cần truy cập nhanh đến các phần nội dung.
-- **QA (Chất lượng/Kiểm định)** – người kiểm tra chất lượng hệ thống, cần xem các module khác nhau một cách hiệu quả.
-- **Hỗ trợ Khách hàng (Support Team)** – người xử lý các yêu cầu học viên, cần truy cập thông báo và thông tin từng học viên.
+- **Quản trị hệ thống (System Administrator / Admin)** – người quản lý toàn bộ hệ thống, cần điều hướng nhanh giữa các module quản trị và thực hiện các thao tác quản lý toàn nền tảng.
+- **QA (Chất lượng/Kiểm định)** – người kiểm tra chất lượng hệ thống, cần xem các module khác nhau một cách hiệu quả để kiểm định và giám sát hoạt động của hệ thống.
 
 ## 5. User Stories
 
+### Sidebar Navigation (Menu bên trái)
 1. Với tư cách **admin**, tôi muốn xem một menu điều hướng rõ ràng ở bên trái màn hình để nhanh chóng truy cập bất kỳ module nào.
-2. Với tư cách **admin**, tôi muốn nhấp vào logo LetDiv từ bất kỳ trang nào để quay lại Dashboard.
-3. Với tư cách **admin**, tôi muốn menu điều hướng hiển thị mục hiện tại được làm nổi bật để tôi biết mình đang ở đâu.
-4. Với tư cách **admin**, tôi muốn các mục menu có thể mở rộng/thu gọn để xem các mục con mà không làm lộn xộn toàn bộ danh sách.
-5. Với tư cách **admin/support**, tôi muốn xem các thông báo mới từ một biểu tượng chuông ở thanh tiêu đề để xử lý các vấn đề nhanh chóng.
-6. Với tư cách **admin**, tôi muốn xem thông tin tài khoản của tôi và có nút đăng xuất dễ tìm ở thanh tiêu đề.
-7. Với tư cách **admin**, tôi muốn mỗi trang có breadcrumb để biết vị trí hiện tại và quay lại các cấp cao hơn.
-8. Với tư cách **admin**, tôi muốn mỗi trang có tiêu đề rõ ràng ở đầu để biết trang hiện tại làm gì.
-9. Với tư cách **admin**, tôi muốn nhận được thông báo Toast khi một hành động thành công hoặc thất bại.
-10. Với tư cách **admin**, tôi muốn có hộp thoại xác nhận trước khi thực hiện hành động quan trọng như xóa dữ liệu.
+2. Với tư cách **admin**, tôi muốn nhấp vào logo LetDiv ở Sidebar để quay lại Dashboard từ bất kỳ trang nào.
+3. Với tư cách **admin**, tôi muốn menu Sidebar hiển thị mục hiện tại được làm nổi bật để tôi biết mình đang ở đâu.
+4. Với tư cách **admin**, tôi muốn nhấp vào menu không có menu con để điều hướng đến trang tương ứng ngay lập tức.
+5. Với tư cách **admin**, tôi muốn nhấp vào menu cha (có menu con) để mở rộng/thu gọn danh sách menu con mà không bị điều hướng.
+
+### Top Bar (Thanh Header ngang)
+6. Với tư cách **admin**, tôi muốn xem các thông báo mới từ một biểu tượng chuông ở Top Bar để xử lý các vấn đề nhanh chóng.
+7. Với tư cách **admin**, tôi muốn xem thông tin tài khoản của tôi và có nút đăng xuất dễ tìm ở Top Bar.
+
+### Page Header (Khu vực nội dung)
+8. Với tư cách **admin**, tôi muốn mỗi trang có breadcrumb để biết vị trí hiện tại và quay lại các cấp cao hơn.
+9. Với tư cách **admin**, tôi muốn mỗi trang có tiêu đề rõ ràng ở đầu để biết trang hiện tại làm gì.
+
+### Hệ thống Phản hồi
+10. Với tư cách **admin**, tôi muốn nhận được thông báo Toast khi một hành động thành công hoặc thất bại.
+11. Với tư cách **admin**, tôi muốn có hộp thoại xác nhận trước khi thực hiện hành động quan trọng như xóa dữ liệu.
 
 ## 6. Yêu cầu
 
@@ -45,16 +51,17 @@
 
 - **Thanh Điều hướng Bên trái (Vertical Sidebar)**
   - Logo LetDiv ở vị trí cao nhất: khi nhấp sẽ điều hướng đến Dashboard.
-  - Menu navigation với cấu trúc phân cấp (menu chính → mục con).
-  - Menu chính có thể mở/đóng để xem/ẩn mục con.
+  - Menu navigation với cấu trúc phân cấp, gồm 2 loại:
+    - **Menu đơn (không có menu con):** Khi nhấp sẽ điều hướng đến trang tương ứng ngay lập tức.
+    - **Menu cha (có menu con):** Khi nhấp sẽ mở rộng/thu gọn để hiển thị/ẩn các menu con, không điều hướng.
   - Các mục menu con khi nhấp sẽ điều hướng đến trang tương ứng.
   - Mục menu của trang hiện tại phải được làm nổi bật (highlight active state).
   - Menu gồm các mục:
-    - Tổng quan (Dashboard)
-    - Quản lý Nội dung → Khóa học
-    - Tương tác & Dịch vụ → Hỏi & Đáp, Chấm bài
-    - Quản lý Người dùng
-    - Quản lý Tài chính → Lịch sử Giao dịch
+    - Tổng quan (Dashboard) - menu đơn
+    - Quản lý Nội dung (menu cha) → Khóa học (menu con)
+    - Tương tác & Dịch vụ (menu cha) → Hỏi & Đáp, Chấm bài (menu con)
+    - Quản lý Người dùng - menu đơn
+    - Quản lý Tài chính (menu cha) → Lịch sử Giao dịch (menu con)
 
 - **Thanh Header Ngang (Top Bar)**
   - Luôn cố định ở trên cùng, bên phải của Sidebar.
@@ -101,13 +108,25 @@
   **When** nhìn vào thanh Sidebar  
   **Then** nhìn thấy menu điều hướng với tất cả các mục chính và mục con được tổ chức
 
-- **Given** admin nhấp vào menu chính có mục con  
-  **When** menu mở/đóng  
-  **Then** các mục con hiển thị/ẩn đi một cách mượt mà
+- **Given** admin nhấp vào menu đơn (không có menu con) như "Dashboard"  
+  **When** click  
+  **Then** điều hướng đến trang tương ứng ngay lập tức
+
+- **Given** admin nhấp vào menu cha (có menu con) như "Quản lý Nội dung"  
+  **When** click lần đầu  
+  **Then** menu mở rộng và hiển thị các menu con, không điều hướng
+
+- **Given** admin nhấp vào menu cha đang mở  
+  **When** click lần nữa  
+  **Then** menu thu gọn và ẩn các menu con đi một cách mượt mà
+
+- **Given** admin nhấp vào menu con như "Khóa học"  
+  **When** click  
+  **Then** điều hướng đến trang Khóa học
 
 - **Given** admin đang xem trang "Khóa học"  
   **When** observe menu  
-  **Then** mục "Khóa học" được làm nổi bật/active
+  **Then** mục "Khóa học" được làm nổi bật/active và menu cha "Quản lý Nội dung" đang mở
 
 - **Given** admin nhấp vào logo LetDiv  
   **When** trang tải  
