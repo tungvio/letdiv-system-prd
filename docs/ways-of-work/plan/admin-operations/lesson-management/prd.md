@@ -40,7 +40,7 @@
 7. Với tư cách **admin/QA**, tôi muốn nhập URL YouTube và upload tài liệu đính kèm cho bài học Video.
 8. Với tư cách **admin/QA**, tôi muốn soạn thảo bài viết với Rich Text Editor hỗ trợ code syntax highlighting.
 9. Với tư cách **admin/QA**, tôi muốn tạo và quản lý câu hỏi trắc nghiệm cho Quiz.
-10. Với tư cách **admin/QA**, tôi muốn tạo bài tập code kèm đáp án tham khảo.
+10. Với tư cách **admin/QA**, tôi muốn tạo và quản lý nhiều bài tập coding trong một lesson Exercise để chia nhỏ bài tập phức tạp thành các bước thực hành nhỏ hơn.
 11. Với tư cách **admin**, tôi muốn sửa thông tin bài học đã tạo để cập nhật nội dung.
 
 ### Xóa Bài học
@@ -145,20 +145,41 @@
     - Sau khi thả, tự động lưu thứ tự mới
 
   ### **4. Loại = Exercise**
-  - **Nội dung bài tập:** (Rich Text Editor, Bắt buộc)
-    - Hỗ trợ đầy đủ tính năng như Rich Text Editor của Bài viết (có thể chèn code block với syntax highlighting)
-    - Trong editor này, admin viết:
-      - Đề bài và yêu cầu
-      - Code khởi tạo (starter code) nếu cần
-      - Ghi chú/hướng dẫn
-  - **Đáp án tham khảo:** (Rich Text Editor, Bắt buộc)
-    - Hỗ trợ đầy đủ tính năng như Rich Text Editor của Bài viết
-    - Admin viết code đáp án mẫu và giải thích cách làm trong editor này
-  - **Tài liệu đính kèm:** (Multiple File Upload, Tùy chọn)
-    - Cho phép tải lên nhiều file (source code, test cases, tài liệu hướng dẫn...)
-    - Định dạng: ZIP, RAR, PDF, MD
-    - Giới hạn mỗi file: < 50MB
-    - Hiển thị danh sách file đã upload với nút xóa từng file
+  - **Khu vực Quản lý Bài tập:**
+    - Hiển thị danh sách các bài tập thực hành đã tạo
+    - Mỗi bài tập có 2 trạng thái: **View Mode** (xem) và **Edit Mode** (sửa)
+    
+  - **Luồng Thêm bài tập mới:**
+    - Nút `[+ Thêm bài tập]` ở cuối danh sách
+    - Khi nhấn, hiển thị form mới ở **Edit Mode** với các trường:
+      - **Tên bài tập:** (Text input, Bắt buộc)
+        - Ví dụ: "Bài tập 1: Khởi tạo mảng", "Bài tập 2: Lọc phần tử"
+      - **Nội dung đề bài:** (Rich Text Editor, Bắt buộc)
+        - Hỗ trợ đầy đủ tính năng như Rich Text Editor của Bài viết (có thể chèn code block với syntax highlighting)
+        - Admin viết đề bài, yêu cầu, starter code (nếu có), ghi chú/hướng dẫn
+      - **Đáp án tham khảo:** (Rich Text Editor, Bắt buộc)
+        - Hỗ trợ đầy đủ tính năng như Rich Text Editor của Bài viết
+        - Admin viết code đáp án mẫu và giải thích cách làm
+      - **Tài liệu đính kèm:** (Multiple File Upload, Tùy chọn)
+        - Cho phép tải lên nhiều file (source code, test cases, tài liệu hướng dẫn...)
+        - Định dạng: ZIP, RAR, PDF, MD
+        - Giới hạn mỗi file: < 50MB
+        - Hiển thị danh sách file đã upload với nút xóa từng file
+      - Nút `[Lưu bài tập]` và `[Hủy]` ở cuối form
+    - **Khi nhấn `[Lưu bài tập]`:**
+      - Validate: Tất cả trường bắt buộc phải được điền
+      - Gửi dữ liệu lên server
+      - Sau khi lưu thành công, chuyển sang **View Mode**
+    - **Khi nhấn `[Hủy]`:** Xóa form khỏi giao diện
+
+  - **Luồng Xem và Sửa bài tập đã có:**
+    - **View Mode:** Hiển thị tên bài tập, một phần nội dung đề bài (truncate), có nút `[Sửa]` và `[Xóa]`
+    - **Khi nhấn `[Sửa]`:** Chuyển sang Edit Mode với dữ liệu đã điền sẵn
+    - **Khi nhấn `[Xóa]`:** Hiển thị modal xác nhận "Bạn có chắc chắn muốn xóa bài tập này?"
+  
+  - **Chức năng Sắp xếp:**
+    - Mỗi bài tập có icon handle (⠿) để kéo-thả
+    - Sau khi thả, tự động lưu thứ tự mới
 
   **Nút hành động của Form:**
   - `[Lưu]` - Lưu và quay lại trang Danh sách
@@ -291,23 +312,43 @@
 ### Tạo Bài học - Exercise
 - **Given** admin chọn loại `Exercise`  
   **When** chọn xong  
-  **Then** form hiển thị 2 Rich Text Editor (Nội dung bài tập và Đáp án tham khảo) và khu vực upload file đính kèm
+  **Then** form hiển thị khu vực quản lý bài tập với nút `[+ Thêm bài tập]`
 
-- **Given** admin soạn nội dung bài tập với code block  
+- **Given** admin nhấn `[+ Thêm bài tập]`  
+  **When** click  
+  **Then** hiển thị form bài tập mới ở Edit Mode với các trường: Tên bài tập, Nội dung đề bài (RTE), Đáp án tham khảo (RTE), Tài liệu đính kèm
+
+- **Given** admin điền tên bài tập, nội dung đề bài và đáp án tham khảo  
+  **When** nhấn `[Lưu bài tập]`  
+  **Then** bài tập chuyển sang View Mode và hiển thị trong danh sách
+
+- **Given** admin thêm bài tập nhưng không điền đáp án tham khảo  
+  **When** nhấn `[Lưu bài tập]`  
+  **Then** hiển thị lỗi "Đáp án tham khảo là bắt buộc"
+
+- **Given** bài tập đã lưu ở View Mode  
+  **When** admin nhấn `[Sửa]`  
+  **Then** bài tập chuyển sang Edit Mode với dữ liệu đã điền sẵn
+
+- **Given** bài tập đã lưu  
+  **When** admin nhấn `[Xóa]`  
+  **Then** hiển thị modal xác nhận xóa bài tập
+
+- **Given** admin kéo-thả bài tập trong Exercise  
+  **When** thả chuột  
+  **Then** thứ tự bài tập được lưu tự động
+
+- **Given** admin soạn nội dung đề bài với code block  
   **When** sử dụng Rich Text Editor  
   **Then** code được hiển thị với syntax highlighting đúng ngôn ngữ đã chọn trong code block
 
-- **Given** admin điền nội dung bài tập và đáp án tham khảo  
-  **When** nhấn `[Lưu]`  
-  **Then** bài học Exercise được tạo và hiển thị với icon 💻
-
-- **Given** admin không điền đáp án tham khảo  
-  **When** nhấn `[Lưu]`  
-  **Then** hiển thị lỗi "Đáp án tham khảo là bắt buộc"
-
-- **Given** admin upload file ZIP chứa source code  
+- **Given** admin upload file ZIP chứa test cases  
   **When** upload thành công  
-  **Then** file hiển thị trong danh sách file đính kèm với nút xóa
+  **Then** file hiển thị trong danh sách file đính kèm của bài tập đó với nút xóa
+
+- **Given** admin đã tạo lesson Exercise với 3 bài tập  
+  **When** nhấn `[Lưu]` ở form lesson  
+  **Then** bài học Exercise được tạo với icon 💻 và chứa 3 bài tập thực hành
 
 ### Chỉnh sửa Bài học
 - **Given** admin nhấn `[Sửa]` ở một bài học Video  

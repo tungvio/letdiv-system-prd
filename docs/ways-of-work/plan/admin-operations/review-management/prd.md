@@ -42,7 +42,7 @@
 
 ### Xóa và Khôi phục Review
 10. Với tư cách **admin**, tôi muốn xóa review vi phạm/spam để bảo vệ chất lượng nền tảng.
-11. Với tư cách **admin**, tôi muốn xem lại các review đã xóa để kiểm tra lịch sử.
+11. Với tư cách **admin/QA**, tôi muốn xem lại các review đã xóa để kiểm tra lịch sử.
 12. Với tư cách **admin**, tôi muốn khôi phục review đã xóa nếu phát hiện xóa nhầm.
 
 ## 6. Yêu cầu
@@ -64,7 +64,7 @@
     - **Thời gian tạo:** Ngày giờ review được tạo.
     - **Hành động:** `[Xóa]` (QA không có nút Xóa).
   - Mặc định chỉ hiển thị review chưa xóa.
-  - Có toggle/tab để chuyển sang xem "Review đã xóa" (chỉ Admin).
+  - Có tab để chuyển sang xem "Review đã xóa" (Admin/QA).
   - Hỗ trợ phân trang khi > 20 review/trang.
   - Có bộ lọc và tìm kiếm:
     - Tìm kiếm theo từ khóa: tên học viên, email, nội dung review.
@@ -106,7 +106,7 @@
     - Vẫn được lưu trong hệ thống để có thể xem lại hoặc khôi phục nếu cần.
   - Sau khi xóa từ trang chi tiết, tự động quay về trang danh sách.
 
-- **Xem Review đã xóa (chỉ Admin)**
+- **Xem Review đã xóa (Admin/QA)**
   - Trong trang danh sách, có toggle/tab "Review đã xóa" để xem các review đã bị xóa.
   - Bảng review đã xóa hiển thị thêm cột: "Người xóa" và "Thời gian xóa".
 
@@ -118,7 +118,7 @@
 - **Phân quyền**
   - Chỉ các vai trò `admin` và `qa` được truy cập module này.
   - **Admin:** Có quyền Xem, Lọc, Tìm kiếm, Phản hồi, Xóa, Xem review đã xóa, Khôi phục review.
-  - **QA:** Có quyền Xem, Lọc, Tìm kiếm, Phản hồi review. Không có quyền Xóa hoặc Khôi phục review.
+  - **QA:** Có quyền Xem, Lọc, Tìm kiếm, Phản hồi review, Xem review đã xóa. Không có quyền Xóa hoặc Khôi phục review.
 
 ### Phi chức năng
 
@@ -190,7 +190,7 @@
   **When** xác nhận xóa  
   **Then** review bị xóa và tự động quay về trang danh sách
 
-- **Given** Admin chuyển sang tab "Review đã xóa"  
+- **Given** admin/QA chuyển sang tab "Review đã xóa"  
   **When** tab tải  
   **Then** hiển thị danh sách review đã xóa với thông tin người xóa và thời gian xóa
 
