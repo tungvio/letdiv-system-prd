@@ -142,17 +142,14 @@
     - Khi nhấn vào cột **Số học viên** trong bảng, mở trang chi tiết thống kê của khóa học.
     - **Tab Tổng quan:**
       - Số học viên đang học
-      - Tỷ lệ hoàn thành khóa học (%): Trung bình tiến độ của tất cả học viên đã mua
       - Đánh giá trung bình (số sao)
       - Tổng số review
     - **Tab Học viên:** Danh sách học viên đã mua (tên, email, ngày mua, tiến độ %).
     - Từ các chỉ số đánh giá, có link điều hướng sang module Review (module riêng) với filter theo khóa học.
-  - **Công thức tính Tiến độ/Hoàn thành:**
+  - **Công thức tính Tiến độ cá nhân:**
     - **Tiến độ cá nhân (%)** = `(Số bài học đã hoàn thành / Tổng số bài học trong khóa học) × 100`
       - Bài học được coi là "đã hoàn thành" khi học viên đánh dấu hoàn thành hoặc xem hết video (tùy rule của module Học viên).
       - Làm tròn đến 1 chữ số thập phân (VD: 67.5%).
-    - **Tỷ lệ hoàn thành khóa học (%)** = `Trung bình cộng tiến độ của tất cả học viên đã mua`
-      - Làm tròn đến 1 chữ số thập phân.
 
 ### Phi chức năng
 
@@ -328,7 +325,7 @@
 
 - **Given** admin/QA xem trang Chi tiết Thống kê  
   **When** chọn tab "Tổng quan"  
-  **Then** hiển thị số học viên, tỷ lệ hoàn thành, điểm trung bình, tổng review
+  **Then** hiển thị số học viên, điểm trung bình, tổng review
 
 - **Given** admin/QA xem tab "Học viên"  
   **When** trang tải  
@@ -337,10 +334,6 @@
 - **Given** một học viên đã hoàn thành 15 trong 20 bài học của khóa học  
   **When** admin/QA xem tiến độ của học viên đó  
   **Then** hiển thị tiến độ = 75.0%
-
-- **Given** khóa học có 3 học viên với tiến độ lần lượt là 50%, 75%, 100%  
-  **When** admin/QA xem tab "Tổng quan"  
-  **Then** tỷ lệ hoàn thành khóa học hiển thị = 75.0% (trung bình cộng)
 
 - **Given** admin/QA nhấn vào chỉ số đánh giá của một khóa học trong danh sách  
   **When** click  
