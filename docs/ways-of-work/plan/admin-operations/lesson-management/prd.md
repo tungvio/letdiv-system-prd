@@ -183,7 +183,6 @@
 - Chức năng drag-and-drop phải mượt mà, không lag (< 16ms/frame).
 - Rich Text Editor phải tương thích với các trình duyệt chính (Chrome, Firefox, Safari, Edge).
 - Code Editor phải hỗ trợ syntax highlighting real-time.
-- Mọi hành động thay đổi dữ liệu (tạo, sửa, xóa, sắp xếp) đều được log.
 - Tuân thủ các yêu cầu phi chức năng chung trong Global UI Components PRD (WCAG AA, browser support, responsive).
 
 ## 7. Tiêu chí chấp nhận
