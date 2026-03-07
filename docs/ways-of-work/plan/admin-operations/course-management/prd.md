@@ -39,18 +39,19 @@
 8. Với tư cách **admin/QA**, tôi muốn thêm danh sách yêu cầu tiên quyết để người học chuẩn bị trước khi tham gia.
 9. Với tư cách **admin/QA**, tôi muốn chọn trạng thái "Bản nháp" khi khóa học chưa sẵn sàng để nó không hiển thị cho người dùng.
 10. Với tư cách **admin**, tôi muốn sửa thông tin khóa học đã tạo để cập nhật nội dung hoặc điều chỉnh giá.
+11. Với tư cách **admin/QA**, tôi muốn cấu hình ưu đãi cho khóa học theo thời gian để hiển thị giá khuyến mãi chính xác cho người dùng.
 
 ### Quản lý Nội dung
-11. Với tư cách **admin**, tôi muốn nhấn "Quản lý Chương" để đi vào trang quản lý chương và bài học của khóa học đó.
+12. Với tư cách **admin**, tôi muốn nhấn "Quản lý Chương" để đi vào trang quản lý chương và bài học của khóa học đó.
 
 ### Xóa Khóa học video
-12. Với tư cách **admin**, tôi muốn xóa khóa học video rỗng (không có chương) để dọn dẹp hệ thống.
-13. Với tư cách **admin**, tôi muốn thấy nút Xóa bị vô hiệu hóa khi khóa học video có chứa chương để tránh xóa nhầm dữ liệu quan trọng.
-14. Với tư cách **admin**, tôi muốn thấy tooltip giải thích khi di chuột qua nút Xóa bị vô hiệu hóa để hiểu lý do không thể xóa.
+13. Với tư cách **admin**, tôi muốn xóa khóa học video rỗng (không có chương) để dọn dẹp hệ thống.
+14. Với tư cách **admin**, tôi muốn thấy nút Xóa bị vô hiệu hóa khi khóa học video có chứa chương để tránh xóa nhầm dữ liệu quan trọng.
+15. Với tư cách **admin**, tôi muốn thấy tooltip giải thích khi di chuột qua nút Xóa bị vô hiệu hóa để hiểu lý do không thể xóa.
 
 ### Thống kê & Báo cáo
-15. Với tư cách **admin/QA**, tôi muốn xem số lượng học viên đang học mỗi khóa học để đánh giá mức độ phổ biến.
-16. Với tư cách **admin/QA**, tôi muốn nhấn vào chỉ số đánh giá để mở module Review tương ứng theo từng khóa học.
+16. Với tư cách **admin/QA**, tôi muốn xem số lượng học viên đang học mỗi khóa học để đánh giá mức độ phổ biến.
+17. Với tư cách **admin/QA**, tôi muốn nhấn vào chỉ số đánh giá để mở module Review tương ứng theo từng khóa học.
 
 ## 6. Yêu cầu
 
@@ -63,7 +64,9 @@
     - **Giảng viên:** Tên giảng viên phụ trách.
     - **Số học viên:** Số lượng học viên đang học (đã mua). Click vào mở trang Chi tiết Thống kê.
     - **Đánh giá:** Số sao trung bình và tổng review (VD: ⭐ 4.5 (128)). Click vào mở module Review với bộ lọc theo khóa học hiện tại.
-    - **Giá:** Giá mua toàn bộ khóa học (VND).
+    - **Giá:**
+      - Không có ưu đãi: hiển thị giá bán hiện tại (VND).
+      - Có ưu đãi còn hiệu lực: hiển thị `Giá ưu đãi` (đậm), `Giá gốc` gạch ngang, kèm badge `% giảm` hoặc `Số tiền giảm`.
     - **Trạng thái:** Nhãn màu (`Công khai` hoặc `Bản nháp`).
     - **Hành động:** Các nút `[Sửa]`, `[Quản lý Chương]`, `[Xóa]` (QA không thấy nút Xóa).
   - Nút `[+ Thêm]` nổi bật ở góc trên cùng bên phải.
@@ -93,7 +96,19 @@
   - **Yêu cầu của khóa học:** 
     - List động với nút `[+ Thêm yêu cầu]`
     - Mỗi dòng có nút `[Sửa]` và `[Xóa]`
-  - **Giá:** (Number input, Bắt buộc) - Số tiền (VND) để mua toàn bộ khóa học.
+  - **Giá gốc:** (Number input, Bắt buộc) - Số tiền (VND) trước ưu đãi.
+  - **Ưu đãi giá:** (Tùy chọn)
+    - Bật/Tắt ưu đãi cho khóa học.
+    - Mỗi khóa học chỉ được có **1 ưu đãi hiệu lực** tại một thời điểm (không cho phép chồng ưu đãi).
+    - **Loại ưu đãi:** `%` hoặc `Số tiền cố định (VND)`.
+    - **Giá trị ưu đãi:**
+      - Nếu loại `%`: giá trị từ `1` đến `99`.
+      - Nếu loại `VND`: giá trị > `0` và nhỏ hơn `Giá gốc`.
+    - **Thời gian hiệu lực:** `Bắt đầu` và `Kết thúc` (datetime, bắt buộc khi bật ưu đãi).
+    - **Giá bán cuối cùng:** trường chỉ đọc, tự động tính theo công thức:
+      - `%`: `Giá gốc * (100 - % giảm) / 100`.
+      - `VND`: `Giá gốc - Số tiền giảm`.
+      - Giá cuối cùng không được nhỏ hơn `0`.
   - **Trạng thái:** (Dropdown)
     - `Bản nháp` - Không hiển thị cho người dùng
     - `Công khai` - Hiển thị trên toàn trang web
@@ -139,6 +154,7 @@
 - Chức năng drag-and-drop phải mượt mà, không lag (< 16ms/frame).
 - Upload ảnh phải có progress bar và validation ngay lập tức.
 - Mọi hành động thay đổi dữ liệu (tạo, sửa, xóa, sắp xếp) đều được log.
+- Kiểm tra hiệu lực ưu đãi phải dùng cùng múi giờ hệ thống (timezone chuẩn theo cấu hình toàn hệ thống).
 - Tuân thủ các yêu cầu phi chức năng chung trong Global UI Components PRD (WCAG AA, browser support, responsive).
 
 ## 7. Tiêu chí chấp nhận
@@ -173,7 +189,7 @@
   **When** form mở ra  
   **Then** hiển thị form trống với tất cả các trường cần nhập
 
-- **Given** admin điền đầy đủ thông tin bắt buộc (Tên, Giá, Trạng thái)  
+- **Given** admin điền đầy đủ thông tin bắt buộc (Tên, Giá gốc, Trạng thái)  
   **When** nhấn `[Lưu]`  
   **Then** khóa học mới được tạo và hiển thị trong danh sách
 
@@ -204,6 +220,31 @@
 - **Given** admin tạo khóa học có cả ảnh bìa và video giới thiệu  
   **When** nhấn `[Lưu]`  
   **Then** khóa học được tạo thành công, ảnh bìa dùng cho SEO/danh sách và video hiển thị ở trang chi tiết
+
+### Quản lý Giá và Ưu đãi
+- **Given** admin nhập `Giá gốc` và bật ưu đãi theo `%`  
+  **When** nhập giá trị `% giảm` hợp lệ  
+  **Then** hệ thống tự động tính và hiển thị đúng `Giá bán cuối cùng`
+
+- **Given** admin bật ưu đãi theo `VND`  
+  **When** nhập số tiền giảm lớn hơn hoặc bằng `Giá gốc`  
+  **Then** hiển thị lỗi validation "Giá trị ưu đãi phải nhỏ hơn giá gốc"
+
+- **Given** admin bật ưu đãi nhưng bỏ trống thời gian bắt đầu hoặc kết thúc  
+  **When** nhấn `[Lưu]`  
+  **Then** hiển thị lỗi validation yêu cầu điền đủ thời gian hiệu lực
+
+- **Given** khóa học đã có một ưu đãi hiệu lực trong cùng khoảng thời gian  
+  **When** admin tạo thêm ưu đãi bị chồng thời gian  
+  **Then** hệ thống từ chối lưu và hiển thị lỗi "Khóa học chỉ được có một ưu đãi hiệu lực tại một thời điểm"
+
+- **Given** khóa học có ưu đãi còn hiệu lực  
+  **When** hiển thị trong bảng danh sách  
+  **Then** cột Giá hiển thị giá ưu đãi, giá gốc gạch ngang và thông tin mức giảm
+
+- **Given** ưu đãi đã hết hiệu lực theo thời gian cấu hình  
+  **When** hiển thị trong bảng danh sách  
+  **Then** chỉ hiển thị `Giá gốc` như giá bán hiện tại
 
 ### Chỉnh sửa Khóa học video
 - **Given** admin nhấn nút `[Sửa]` ở một khóa học video  
@@ -301,6 +342,7 @@
 - Quản lý Giảng viên (thuộc module riêng, module này chỉ sử dụng danh sách có sẵn).
 - **Thống kê & Báo cáo Doanh thu** (thuộc module Quản lý Tài chính).
 - **Quản lý Review chi tiết và xóa review** (thuộc module Review riêng).
+- **Mã giảm giá theo người dùng/đơn hàng (coupon/voucher)**.
 - Quản lý danh mục (category/tag) cho khóa học.
 - Tính năng nhân bản (duplicate) khóa học.
 - Export/Import dữ liệu khóa học.
