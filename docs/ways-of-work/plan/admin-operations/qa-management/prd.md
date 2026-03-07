@@ -61,8 +61,8 @@
     - **Số câu trả lời:** Tổng số câu trả lời hiện có (ví dụ: `3 câu trả lời`).
     - **Trạng thái:** `Đang chờ` hoặc `Đã giải quyết`.
     - **Thời gian tạo:** Ngày giờ đặt câu hỏi.
-    - **Hành động:** Nút `[Xem & Trả lời]`.
-  - Mặc định hiển thị câu hỏi chưa bị xóa.
+    - **Hành động:** Nút `[Xem]`.
+  - **Mặc định khi vào trang:** Hiển thị câu hỏi chưa bị xóa và tự động lọc theo trạng thái `Đang chờ`.
   - Hỗ trợ phân trang khi > 20 câu hỏi/trang.
   - Có bộ lọc và tìm kiếm:
     - Tìm kiếm theo từ khóa: tiêu đề câu hỏi, nội dung câu hỏi, tên người hỏi.
@@ -75,7 +75,7 @@
 
 - **Trang Chi tiết Câu hỏi**
   - **Breadcrumb Navigation:** `Quản lý Hỏi đáp > Chi tiết Câu hỏi`
-  - Truy cập: Click vào nút `[Xem & Trả lời]` hoặc click vào dòng câu hỏi trong bảng danh sách.
+  - Truy cập: Click vào nút `[Xem]` hoặc click vào dòng câu hỏi trong bảng danh sách.
   - **Hiển thị đầy đủ:**
     - **Câu hỏi gốc:** Tiêu đề, nội dung đầy đủ, thông tin người hỏi (tên, avatar, email), ngày giờ đặt câu hỏi.
     - **Ngữ cảnh:** Tên khóa học và tên bài học (có link đến trang quản lý tương ứng).
@@ -84,6 +84,7 @@
     - Hiển thị danh sách các câu trả lời đã có (sắp xếp theo thời gian, mới nhất trước).
     - Mỗi câu trả lời hiển thị: nội dung, thông tin người trả lời, thời gian.
     - Câu trả lời của chính mình có nút `[Sửa]` để chỉnh sửa.
+    - Admin thấy thêm nút `[Xóa]` trên mọi câu trả lời (bao gồm cả câu trả lời của học viên) để xóa nội dung vi phạm/spam.
   - **Form thêm câu trả lời mới:**
     - Rich Text Editor (hỗ trợ định dạng cơ bản + chèn link + code block).
     - Nút `[Gửi trả lời]`.
@@ -95,7 +96,11 @@
 - **Trả lời Câu hỏi**
   - Admin/QA có thể thêm câu trả lời mới bằng Rich Text Editor.
   - Có thể chỉnh sửa câu trả lời của chính mình.
-  - Không thể sửa/xóa câu trả lời của người khác (bao gồm cả học viên).
+  - Không thể sửa câu trả lời của người khác để giữ tính toàn vẹn nội dung.
+  - **Admin có thể xóa** bất kỳ câu trả lời nào nếu vi phạm/spam:
+    - Khi click `[Xóa]`, hiển thị modal xác nhận: `Bạn có chắc chắn muốn xóa câu trả lời này?`
+    - Sau khi xóa, câu trả lời biến mất khỏi danh sách.
+  - QA không có quyền xóa câu trả lời.
 
 - **Đánh dấu Trạng thái**
   - **Đánh dấu "Đã giải quyết":**
@@ -116,8 +121,8 @@
 
 - **Phân quyền**
   - Chỉ các vai trò `admin` và `qa` được truy cập module này.
-  - **Admin:** Có quyền xem toàn bộ câu hỏi, trả lời, chỉnh sửa câu trả lời của mình, đánh dấu trạng thái, xóa câu hỏi, xem và khôi phục câu hỏi đã xóa.
-  - **QA:** Có quyền xem toàn bộ câu hỏi, trả lời, chỉnh sửa câu trả lời của mình, đánh dấu trạng thái và xem câu hỏi đã xóa. Không có quyền xóa hoặc khôi phục câu hỏi.
+  - **Admin:** Có quyền xem toàn bộ câu hỏi, trả lời, chỉnh sửa câu trả lời của mình, xóa bất kỳ câu trả lời nào, đánh dấu trạng thái, xóa câu hỏi, xem và khôi phục câu hỏi đã xóa.
+  - **QA:** Có quyền xem toàn bộ câu hỏi, trả lời, chỉnh sửa câu trả lời của mình, đánh dấu trạng thái và xem câu hỏi đã xóa. Không có quyền xóa câu trả lời, xóa hoặc khôi phục câu hỏi.
 
 ### Phi chức năng
 
@@ -131,7 +136,7 @@
 ### Điều hướng
 - **Given** admin/QA vào module Quản lý Hỏi đáp từ menu  
   **When** trang tải  
-  **Then** hiển thị danh sách câu hỏi toàn hệ thống (hoặc theo phạm vi được phân quyền)
+  **Then** hiển thị danh sách câu hỏi với bộ lọc mặc định `Trạng thái = Đang chờ` và sắp xếp mới nhất trước
 
 ### Danh sách và Bộ lọc
 - **Given** admin/QA vào trang Quản lý Hỏi đáp  
@@ -151,7 +156,7 @@
   **Then** câu hỏi cũ nhất xuất hiện đầu danh sách
 
 ### Xem chi tiết Câu hỏi
-- **Given** admin/QA click vào nút `[Xem & Trả lời]` hoặc click vào dòng câu hỏi  
+- **Given** admin/QA click vào nút `[Xem]` hoặc click vào dòng câu hỏi  
   **When** trang chi tiết tải  
   **Then** mở trang chi tiết câu hỏi với breadcrumb `Quản lý Hỏi đáp > Chi tiết Câu hỏi`
 
@@ -171,6 +176,18 @@
 - **Given** admin/QA cập nhật nội dung câu trả lời  
   **When** nhấn `[Lưu]`  
   **Then** hệ thống lưu phiên bản mới và hiển thị nội dung đã cập nhật
+
+- **Given** Admin thấy câu trả lời vi phạm/spam của học viên  
+  **When** nhấn nút `[Xóa]` trên câu trả lời đó  
+  **Then** hiển thị modal xác nhận xóa
+
+- **Given** Admin xác nhận xóa câu trả lời  
+  **When** nhấn xác nhận trong modal  
+  **Then** câu trả lời bị xóa và không còn hiển thị trong danh sách
+
+- **Given** QA xem câu trả lời  
+  **When** kiểm tra các nút hành động  
+  **Then** chỉ thấy nút `[Sửa]` trên câu trả lời của mình, không thấy nút `[Xóa]` ở bất kỳ câu trả lời nào
 
 ### Đánh dấu Trạng thái
 - **Given** câu hỏi đang ở trạng thái `Đang chờ`  
