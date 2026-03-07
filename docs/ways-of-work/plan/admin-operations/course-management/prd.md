@@ -59,7 +59,7 @@
 
 - **Trang Danh sách Khóa học video**
   - Hiển thị dưới dạng bảng (table) với các cột:
-    - **Handle (⁠⁠⁠):** Icon kéo-thả (drag handle) - biểu tượng 6 chấm `⁠⁠⁠` hoặc 3 gạch ngang `≡` để nhấn giữ và kéo lên/xuống sắp xếp thứ tự.
+    - **Handle (⁠⁠⁠):** Icon kéo-thả (drag handle) - biểu tượng 6 chấm `⁠⁠⁠` để nhấn giữ và kéo lên/xuống sắp xếp thứ tự.
     - **Tên khóa học:** Hiển thị tên và ảnh bìa thumbnail (dùng cho SEO và preview danh sách).
     - **Giảng viên:** Tên giảng viên phụ trách.
     - **Số học viên:** Số lượng học viên đang học (đã mua). Click vào mở trang Chi tiết Thống kê.
