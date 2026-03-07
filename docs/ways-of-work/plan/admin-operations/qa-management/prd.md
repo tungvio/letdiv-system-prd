@@ -53,9 +53,14 @@
   - Người dùng truy cập module từ menu `Quản lý Hỏi đáp` trong khu vực Admin.
   - **Breadcrumb Navigation:** `Quản lý Hỏi đáp`
 
+- **Cấu trúc Dữ liệu Câu hỏi**
+  - Mỗi câu hỏi của học viên bao gồm:
+    - **Tiêu đề:** (Text, Bắt buộc) - Tóm tắt ngắn gọn vấn đề, hiển thị trong danh sách.
+    - **Nội dung:** (Rich Text, Bắt buộc) - Mô tả chi tiết câu hỏi, hiển thị đầy đủ trong trang chi tiết.
+
 - **Trang Danh sách Câu hỏi**
   - Hiển thị dạng bảng (table) với các cột:
-    - **Câu hỏi:** Tiêu đề câu hỏi, rút gọn 1-2 dòng, có nút `[Xem chi tiết]` nếu dài.
+    - **Câu hỏi:** Hiển thị **Tiêu đề** câu hỏi, rút gọn 1-2 dòng, có nút `[Xem chi tiết]` nếu dài.
     - **Người hỏi:** Họ tên + avatar học viên.
     - **Ngữ cảnh:** Hiển thị dạng `[Tên khóa học] > [Tên bài học]` để biết câu hỏi được đặt ở đâu.
     - **Số câu trả lời:** Tổng số câu trả lời hiện có (ví dụ: `3 câu trả lời`).
@@ -77,7 +82,11 @@
   - **Breadcrumb Navigation:** `Quản lý Hỏi đáp > Chi tiết Câu hỏi`
   - Truy cập: Click vào nút `[Xem]` hoặc click vào dòng câu hỏi trong bảng danh sách.
   - **Hiển thị đầy đủ:**
-    - **Câu hỏi gốc:** Tiêu đề, nội dung đầy đủ, thông tin người hỏi (tên, avatar, email), ngày giờ đặt câu hỏi.
+    - **Câu hỏi gốc:** 
+      - **Tiêu đề:** Hiển thị làm heading (ví dụ: H2 hoặc H3).
+      - **Nội dung đầy đủ:** Hiển thị dưới tiêu đề, hỗ trợ rich text (chèn ảnh, code block nếu học viên nhập).
+      - **Thông tin người hỏi:** Tên, avatar, email.
+      - **Ngày giờ đặt câu hỏi:** Timestamp.
     - **Ngữ cảnh:** Tên khóa học và tên bài học (có link đến trang quản lý tương ứng).
     - **Trạng thái hiện tại:** Badge `Đang chờ` hoặc `Đã giải quyết`.
   - **Khu vực Câu trả lời:**
