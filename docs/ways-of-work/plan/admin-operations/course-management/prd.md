@@ -59,12 +59,12 @@
 
 - **Trang Danh sách Khóa học video**
   - Hiển thị dưới dạng bảng (table) với các cột:
-    - **Handle (⠿):** Icon để kéo-thả sắp xếp thứ tự (chỉ Admin thấy).
+    - **Handle (⁠⁠⁠):** Icon kéo-thả (drag handle) - biểu tượng 6 chấm `⁠⁠⁠` hoặc 3 gạch ngang `≡` để nhấn giữ và kéo lên/xuống sắp xếp thứ tự.
     - **Tên khóa học:** Hiển thị tên và ảnh bìa thumbnail (dùng cho SEO và preview danh sách).
     - **Giảng viên:** Tên giảng viên phụ trách.
     - **Số học viên:** Số lượng học viên đang học (đã mua). Click vào mở trang Chi tiết Thống kê.
     - **Đánh giá:** Số sao trung bình và tổng review (VD: ⭐ 4.5 (128)). Click vào mở module Review với bộ lọc theo khóa học hiện tại.
-    - **Giá:**
+    - **Giá:** (Chỉ Admin thấy)
       - Không có ưu đãi: hiển thị giá bán hiện tại (VND).
       - Có ưu đãi còn hiệu lực: hiển thị `Giá ưu đãi` (đậm), `Giá gốc` gạch ngang, kèm badge `% giảm` hoặc `Số tiền giảm`.
     - **Trạng thái:** Nhãn màu (`Công khai` hoặc `Bản nháp`).
@@ -96,8 +96,8 @@
   - **Yêu cầu của khóa học:** 
     - List động với nút `[+ Thêm yêu cầu]`
     - Mỗi dòng có nút `[Sửa]` và `[Xóa]`
-  - **Giá gốc:** (Number input, Bắt buộc) - Số tiền (VND) trước ưu đãi.
-  - **Ưu đãi giá:** (Tùy chọn)
+  - **Giá gốc:** (Number input, Bắt buộc, Chỉ Admin) - Số tiền (VND) trước ưu đãi.
+  - **Ưu đãi giá:** (Tùy chọn, Chỉ Admin)
     - Bật/Tắt ưu đãi cho khóa học.
     - Mỗi khóa học chỉ được có **1 ưu đãi hiệu lực** tại một thời điểm (không cho phép chồng ưu đãi).
     - **Loại ưu đãi:** `%` hoặc `Số tiền cố định (VND)`.
@@ -109,6 +109,7 @@
       - `%`: `Giá gốc * (100 - % giảm) / 100`.
       - `VND`: `Giá gốc - Số tiền giảm`.
       - Giá cuối cùng không được nhỏ hơn `0`.
+  - **Lưu ý phân quyền form:** QA không thấy và không thể chỉnh sửa các trường **Giá gốc** và **Ưu đãi giá**. Form của QA chỉ hiển thị các trường nội dung (Tên, Mô tả, Ảnh bìa, Video, Giảng viên, Mục tiêu, Yêu cầu, Trạng thái).
   - **Trạng thái:** (Dropdown)
     - `Bản nháp` - Không hiển thị cho người dùng
     - `Công khai` - Hiển thị trên toàn trang web
@@ -131,7 +132,7 @@
 - **Phân quyền**
   - Chỉ các vai trò `admin` và `qa` được truy cập module này.
   - **Admin:** Có toàn quyền Tạo, Xem, Sửa, Xóa khóa học video và sắp xếp thứ tự.
-  - **QA:** Có quyền Xem và Sửa thông tin khóa học, xem thống kê số lượng học viên và chỉ số đánh giá. Không có quyền Xóa khóa học và sắp xếp thứ tự.
+  - **QA:** Có quyền Xem, Sửa thông tin nội dung khóa học (tên, mô tả, ảnh bìa, video, giảng viên, mục tiêu, yêu cầu, trạng thái) và sắp xếp thứ tự khóa học, xem thống kê số lượng học viên và chỉ số đánh giá. **Không thấy và không có quyền thao tác** với bất kỳ thông tin tài chính nào (Giá gốc, Ưu đãi giá). Không có quyền Xóa khóa học.
 
 - **Thống kê & Báo cáo**
   - **Hiển thị trong bảng Danh sách:**
@@ -173,7 +174,7 @@
 
 - **Given** QA nhìn thấy danh sách khóa học  
   **When** kiểm tra các cột  
-  **Then** thấy tên, giảng viên, số học viên, đánh giá, giá, trạng thái và nút Sửa, Quản lý Chương (không có handle và nút Xóa)
+  **Then** thấy icon handle (⁠⁠⁠), tên, giảng viên, số học viên, đánh giá, trạng thái và nút Sửa, Quản lý Chương (không có cột Giá và nút Xóa)
 
 - **Given** có nhiều khóa học trong danh sách  
   **When** admin nhấn giữ icon handle và kéo một khóa học  
@@ -192,7 +193,7 @@
   **When** form mở ra  
   **Then** hiển thị form trống với tất cả các trường cần nhập
 
-- **Given** admin điền đầy đủ thông tin bắt buộc (Tên, Giá gốc, Trạng thái)  
+- **Given** admin điền đầy đủ thông tin bắt buộc (Tên, Ảnh bìa, Giá gốc, Trạng thái)  
   **When** nhấn `[Lưu]`  
   **Then** khóa học mới được tạo và hiển thị trong danh sách
 
@@ -312,7 +313,11 @@
 
 - **Given** QA truy cập  
   **When** truy cập  
-  **Then** hiển thị trang Quản lý Khóa học video nhưng không có icon handle và nút Xóa (chỉ có nút Sửa và Quản lý Chương)
+  **Then** hiển thị trang Quản lý Khóa học video với icon handle kéo-thả, nhưng không có cột Giá và nút Xóa (chỉ có nút Sửa và Quản lý Chương)
+
+- **Given** QA nhấn `[Sửa]` một khóa học  
+  **When** form mở ra  
+  **Then** form chỉ hiển thị các trường nội dung (Tên, Mô tả, Ảnh bìa, Video, Giảng viên, Mục tiêu, Yêu cầu, Trạng thái); không hiển thị các trường Giá gốc và Ưu đãi giá
 
 ### Thống kê & Báo cáo
 - **Given** admin/QA xem bảng danh sách khóa học  
