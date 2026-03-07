@@ -117,12 +117,15 @@
   - **Luồng Thêm câu hỏi mới:**
     - Nút `[+ Thêm câu hỏi]` ở cuối danh sách
     - Khi nhấn, hiển thị form mới ở **Edit Mode** với các trường:
-      - **Nội dung câu hỏi:** (Text Area, Bắt buộc)
+      - **Nội dung câu hỏi:** (Rich Text Area, Bắt buộc)
+        - Hỗ trợ định dạng text cơ bản và chèn code block với syntax highlighting
+        - Cần thiết vì câu hỏi có thể chứa code snippet (ví dụ: "Đoạn code sau in ra kết quả gì?")
       - **Loại câu trả lời:** (Radio Buttons)
         - ◎ Một đáp án đúng (Single choice)
         - ◎ Nhiều đáp án đúng (Multiple choice)
       - **Danh sách lựa chọn trả lời:**
-        - Mỗi dòng có: Checkbox/Radio (đánh dấu đáp án đúng), Text input (nội dung), nút `[Xóa]`
+        - Mỗi dòng có: Checkbox/Radio (đánh dấu đáp án đúng), Rich Text Area (nội dung), nút `[Xóa]`
+        - Rich Text Area cho mỗi lựa chọn hỗ trợ định dạng và code block (vì đáp án có thể là code)
         - Nút `[+ Thêm lựa chọn]` để thêm đáp án mới
         - Tối thiểu 2 lựa chọn, tối đa 10 lựa chọn
       - Nút `[Lưu câu hỏi]` và `[Hủy]` ở cuối form
@@ -142,18 +145,20 @@
     - Sau khi thả, tự động lưu thứ tự mới
 
   ### **4. Loại = Exercise**
-  - **Nội dung đề bài:** (Rich Text Editor, Bắt buộc)
+  - **Nội dung bài tập:** (Rich Text Editor, Bắt buộc)
+    - Hỗ trợ đầy đủ tính năng như Rich Text Editor của Bài viết (có thể chèn code block với syntax highlighting)
+    - Trong editor này, admin viết:
+      - Đề bài và yêu cầu
+      - Code khởi tạo (starter code) nếu cần
+      - Ghi chú/hướng dẫn
+  - **Đáp án tham khảo:** (Rich Text Editor, Bắt buộc)
     - Hỗ trợ đầy đủ tính năng như Rich Text Editor của Bài viết
-  - **Ngôn ngữ lập trình:** (Dropdown, Bắt buộc)
-    - JavaScript, Python, Java, C++, PHP, Ruby, Go
-  - **Code khởi tạo (Starter code):** (Code Editor, Tùy chọn)
-    - Code mẫu cho học viên bắt đầu làm bài
-    - Syntax highlighting theo ngôn ngữ đã chọn
-  - **Code đáp án tham khảo:** (Code Editor, Bắt buộc)
-    - Đáp án mẫu để học viên tham khảo sau khi làm xong
-    - Syntax highlighting theo ngôn ngữ đã chọn
-  - **Ghi chú hướng dẫn:** (Rich Text Editor, Tùy chọn)
-    - Giải thích cách tiếp cận, lưu ý khi làm bài
+    - Admin viết code đáp án mẫu và giải thích cách làm trong editor này
+  - **Tài liệu đính kèm:** (Multiple File Upload, Tùy chọn)
+    - Cho phép tải lên nhiều file (source code, test cases, tài liệu hướng dẫn...)
+    - Định dạng: ZIP, RAR, PDF, MD
+    - Giới hạn mỗi file: < 50MB
+    - Hiển thị danh sách file đã upload với nút xóa từng file
 
   **Nút hành động của Form:**
   - `[Lưu]` - Lưu và quay lại trang Danh sách
@@ -287,19 +292,23 @@
 ### Tạo Bài học - Exercise
 - **Given** admin chọn loại `Exercise`  
   **When** chọn xong  
-  **Then** form hiển thị Rich Text Editor đề bài, dropdown ngôn ngữ, code editor cho starter code và đáp án
+  **Then** form hiển thị 2 Rich Text Editor (Nội dung bài tập và Đáp án tham khảo) và khu vực upload file đính kèm
 
-- **Given** admin chọn ngôn ngữ `Python`  
-  **When** nhập code vào code editor  
-  **Then** code được highlight theo syntax Python
+- **Given** admin soạn nội dung bài tập với code block  
+  **When** sử dụng Rich Text Editor  
+  **Then** code được hiển thị với syntax highlighting đúng ngôn ngữ đã chọn trong code block
 
-- **Given** admin điền đầy đủ đề bài và code đáp án  
+- **Given** admin điền nội dung bài tập và đáp án tham khảo  
   **When** nhấn `[Lưu]`  
   **Then** bài học Exercise được tạo và hiển thị với icon 💻
 
-- **Given** admin không điền code đáp án  
+- **Given** admin không điền đáp án tham khảo  
   **When** nhấn `[Lưu]`  
-  **Then** hiển thị lỗi "Code đáp án tham khảo là bắt buộc"
+  **Then** hiển thị lỗi "Đáp án tham khảo là bắt buộc"
+
+- **Given** admin upload file ZIP chứa source code  
+  **When** upload thành công  
+  **Then** file hiển thị trong danh sách file đính kèm với nút xóa
 
 ### Chỉnh sửa Bài học
 - **Given** admin nhấn `[Sửa]` ở một bài học Video  
